@@ -1,4 +1,5 @@
 # Quarto generated files
+_book/
 *.html
 *.ipynb
 *.pdf
