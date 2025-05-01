@@ -1,0 +1,57 @@
+# Data Cleaning Essentials
+
+Data cleaning is one of the most critical steps in any data workflow.\
+This chapter outlines reusable strategies for cleaning and preparing your data for analysis.
+
+------------------------------------------------------------------------
+
+## 3.1 Inspecting Data
+
+Use tools like `summary()`, `str()`, or `skimr::skim()` to understand the structure and quality of your dataset.
+
+```{r}
+summary(mtcars)
+```
+
+## 3.2 Handling Missing Values
+
+Common approaches include:
+
+-   Removing rows with `NA`
+
+-   Imputing values
+
+-   Using domain knowledge to infer missing information
+
+```{r}
+#| eval: false
+# Drop rows with missing values
+clean_data <- na.omit(raw_data)
+```
+
+## 3.3 Removing Duplicates
+
+```{r}
+#| eval: false
+clean_data <- distinct(raw_data)
+```
+
+Use `duplicated()`, `distinct()` (dplyr), or `janitor::get_dupes()`.
+
+## 3.4 Standardizing Column Names
+
+```{r}
+#| eval: false
+library(janitor)
+clean_data <- raw_data |> janitor::clean_names()
+```
+
+## 3.5 String Cleaning
+
+Use `stringr::str_trim()`, `str_to_lower()`, etc., to normalize text.
+
+```{r}
+#| eval: false
+library(stringr)
+df$name <- str_to_title(str_trim(df$name))
+```

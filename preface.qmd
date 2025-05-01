@@ -1,0 +1,45 @@
+# Preface {.unnumbered}
+
+::: callout-note
+Welcome to **Evanbook**, a modern and modular Quarto Book template designed to support your academic, technical, and documentation writing workflows.
+:::
+
+Whether you're creating:
+
+\- 📦 a package manual,
+
+\- 🧪 a scientific project report, or
+
+\- 📘 an educational book,
+
+Evanbook provides a clean and extensible starting point with opinionated structure and styling.
+
+------------------------------------------------------------------------
+
+## Why this template?
+
+This book template was born out of the need for: - 🧱 **structured content organization** - 🎨 **customizable and elegant visual design** - 🛠️ **R + Python + Markdown compatibility** - 🗂️ **multi-chapter publishing and web deployment**
+
+------------------------------------------------------------------------
+
+## Who should use Evanbook?
+
+-   🧑‍🎓 **Researchers** writing technical documentation
+-   🧑‍🏫 **Instructors** creating course material
+-   💻 **Developers** building package or API documentation
+-   🖋️ **Writers** seeking a professional digital publishing format
+
+------------------------------------------------------------------------
+
+## Structure of this book
+
+Each part of this book demonstrates how to structure a multi-part Quarto project:
+
+1.  **Getting Started** — project setup and tool basics\
+2.  **Workflow Modules** — reusable writing components\
+3.  **Advanced Topics** — deployment, extensions, customization\
+4.  **Appendices** — reproducibility, references, tooling
+
+------------------------------------------------------------------------
+
+📌 *Feel free to customize this page with your own motivations and audience-specific notes.*

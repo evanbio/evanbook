@@ -1,0 +1,90 @@
+# Quarto Basics
+
+This chapter introduces the key components of a Quarto document and how to work with them interactively.
+
+## 2.1 Anatomy of a `.qmd` file
+
+Each Quarto document starts with a **YAML header** (metadata block), followed by **markdown text** and **code chunks**.
+
+``` markdown
+---
+title: "Example Document"
+author: "Evan"
+format: html
+---
+
+# Heading 1
+
+Some text.
+```
+
+```{r}
+summary(mtcars)
+```
+
+You can use `r`, `python`, `bash`, and more as code chunk engines.
+
+------------------------------------------------------------------------
+
+## 2.2 Markdown Elements
+
+Quarto supports standard Markdown syntax:
+
+-   **Bold**, *italic*, `code`
+-   Lists: `- item`, `1. item`
+-   Links: `[text](url)`
+-   Images: `![](image.png)`
+-   Tables:
+
+| Name | Value |
+|------|-------|
+| A    | 100   |
+| B    | 200   |
+
+## 2.3 Code Chunks
+
+Code chunks are delimited by triple backticks and `{lang}`:
+
+```{r}
+# R chunk
+summary(iris)
+```
+
+```{python}
+#| eval: false
+#| 
+# Python chunk
+print("Hello from Python")
+```
+
+Use `echo`, `eval`, `warning`, `message` chunk options to control output.
+
+## 2.4 Rendering Documents
+
+To preview your book:
+
+``` bash
+quarto preview
+```
+
+To render all chapters:
+
+``` bash
+quarto render
+```
+
+You can also render individual `.qmd` files if needed.
+
+## 2.5 Directory Structure
+
+Typical Quarto book structure:
+
+``` markdown
+evanbook/
+├── _quarto.yml
+├── styles.css
+├── index.qmd
+├── 01_installation.qmd
+├── 02_quarto-basics.qmd
+└── ...
+```

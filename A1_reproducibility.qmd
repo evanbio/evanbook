@@ -1,0 +1,36 @@
+# Reproducibility and Project Organization
+
+Ensuring reproducibility is a cornerstone of good scientific and analytical practice.
+
+------------------------------------------------------------------------
+
+## A1.1 Organizing Your Project
+
+-   Use a consistent folder structure: `data/`, `scripts/`, `output/`, `figures/`
+-   Track raw vs. processed data separately
+-   Always include a `README.md`
+
+------------------------------------------------------------------------
+
+## A1.2 Managing Dependencies
+
+### R:
+
+Use `{renv}` to lock your R environment:
+
+```r
+install.packages("renv")
+renv::init()
+```
+
+### Python:
+
+Use `virtualenv`, `venv`, or `conda` for isolation.
+
+## A1.3 Quarto Tips
+
+-   Use `freeze: auto` in `_quarto.yml` to cache outputs
+
+-   Always set `execute:` chunk-level control
+
+-   Consider storing all outputs in `/output/` and images in `/figures/`

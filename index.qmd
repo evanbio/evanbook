@@ -1,13 +1,22 @@
----
-title: "Welcome to EvanBook"
-format: html
-editor: visual
----
+# Index {.unnumbered}
 
-> This is a reusable Quarto Book template. Replace this page with your project introduction or landing page.
+::: {style="text-align: center; margin-top: 3.5rem;"}
+<img src="images/logo-input.png" width="100" style="margin-bottom: 1.5rem;"/>
 
-## 📘 What's Included
+[Evanbook]{style="font-size: 2.2rem; font-weight: 700;"}
 
--   Pre-configured chapters
--   Light/Dark mode
--   Customizable CSS
+<p style="font-size: 1.15rem; font-weight: 500; margin-top: 0.8rem;">
+
+A modern, modular, and professional Quarto Book template
+
+</p>
+
+<p style="font-size: 0.95rem; color: #666; margin-top: 1.2rem;">
+
+Created by <a href="https://evanzhou.org" target="_blank">Evan Zhou</a> ·\
+Powered by <a href="https://quarto.org" target="_blank">Quarto</a>
+
+</p>
+
+<a href="preface.qmd" class="btn-primary">📘 Start Reading →</a>
+:::

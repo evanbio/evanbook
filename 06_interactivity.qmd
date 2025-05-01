@@ -1,0 +1,83 @@
+# Interactive Content in Quarto
+
+Quarto supports various forms of interactive content to enrich your document and engage your audience.
+
+------------------------------------------------------------------------
+
+## 6.1 Using htmlwidgets
+
+You can embed interactive widgets from R directly:
+
+```{r}
+#| eval: false
+library(plotly)
+plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species, type = 'scatter', mode = 'markers')
+```
+
+Other useful widgets:
+
+-   `DT::datatable()`
+
+-   `leaflet::leaflet()`
+
+These are rendered as interactive HTML widgets in the output.
+
+## 6.2 Embedding Shiny Apps
+
+You can embed Shiny apps inside a Quarto document:
+
+```{r}
+#| context: shiny
+#| eval: false
+selectInput("var", "Variable", choices = names(mtcars))
+renderPlot({
+  hist(mtcars[[input$var]])
+})
+```
+
+> 📌 Requires `runtime: shiny` in the YAML header.
+
+## 6.3 Observable JS Blocks
+
+Use Observable blocks to embed JavaScript-powered interactivity:
+
+```{ojs}
+Plot.plot({
+  marks: [
+    Plot.dotY([1, 2, 4, 8, 16])
+  ]
+})
+```
+
+> Quarto automatically includes Observable runtime when needed.
+
+## 6.4 Code Folding and Reveal
+
+Enable collapsible code blocks:
+
+``` markdown
+format:
+  html:
+    code-fold: true
+```
+
+Use `revealjs` format for slideshow-like interaction:
+
+``` markdown
+format:
+  html:
+    code-fold: true
+```
+
+## 6.5 User Input + Reactive Output (Shiny)
+
+Use input/output bindings to create small tools or exploratory panels.
+
+```{r}
+#| context: shiny
+#| eval: false
+sliderInput("bins", "Number of Bins", min = 1, max = 50, value = 30)
+renderPlot({
+  hist(faithful$waiting, breaks = input$bins)
+})
+```

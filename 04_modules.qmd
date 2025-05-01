@@ -1,8 +1,0 @@
-# 🔧 Modules
-
-Use this page to describe your core tools, functions, or pipelines.
-
-## Example Section
-
--   `analyze_data()`: Performs data cleaning and transformation
--   `plot_summary()`: Generates summary visualizations

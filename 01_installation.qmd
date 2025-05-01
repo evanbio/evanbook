@@ -1,0 +1,62 @@
+# Installation and Setup
+
+Before using this book template, ensure your environment is properly configured.
+
+------------------------------------------------------------------------
+
+## 1.1 Install Quarto
+
+You can install Quarto from the official website:
+
+-   <https://quarto.org/docs/get-started>
+
+```{bash}
+# Windows/macOS/Linux
+# Download from the website and follow the installer instructions
+```
+
+Check version:
+
+```{bash}
+
+quarto --version
+```
+
+## 1.2 Install R and RStudio
+
+If you're using R:
+
+-   Install **R** from: https://cran.r-project.org
+
+-   Install **RStudio IDE** from: https://posit.co/download/rstudio-desktop
+
+## 1.3 Install Python (optional)
+
+If your book uses Python code blocks, install Python (≥ 3.8):
+
+```{bash}
+# Install via Anaconda or python.org
+python --version
+```
+
+Optional: set up a virtual environment using `venv`, `conda`, or `virtualenv`.
+
+## 1.4 Recommended Tools
+
+| Tool         | Purpose                     |
+|--------------|-----------------------------|
+| Quarto       | Rendering and publishing    |
+| R / Python   | Language support            |
+| VS Code      | Lightweight editing         |
+| Git + GitHub | Version control, deployment |
+
+## 1.5 Initialize a New Project
+
+To create a new project based on this template:
+
+```{bash}
+
+quarto use template evanbio/evanbook
+cd evanbook
+quarto preview
+```

@@ -1,0 +1,87 @@
+# Extending Quarto
+
+Quarto is designed to be extensible. This chapter introduces how to install, use, and create extensions such as themes, filters, and shortcodes.
+
+------------------------------------------------------------------------
+
+## 7.1 What is a Quarto Extension?
+
+An extension is a reusable bundle that can include:
+
+-   🧩 Themes (CSS, SCSS)
+-   🛠️ Lua filters
+-   🔧 Shortcodes
+-   📚 Project templates
+
+They can be published to GitHub and installed via `quarto add`.
+
+------------------------------------------------------------------------
+
+## 7.2 Installing Extensions
+
+To install an extension:
+
+``` markdown
+quarto add quarto-ext/fontawesome
+```
+
+This will download the extension and add it to your project’s `_extensions/` folder.
+
+Other examples:
+
+``` markdown
+quarto add quarto-ext/clean
+quarto add quarto-ext/authoring
+```
+
+List installed extensions:
+
+``` markdown
+quarto list
+```
+
+## 7.3 Using Extensions
+
+Example: using the Font Awesome icon extension:
+
+::: {.fa-solid .fa-book}
+This is a book icon
+:::
+
+Themes:
+
+``` markdonw
+format:
+  html:
+    theme: [cosmo, clean]
+```
+
+## 7.4 Creating Your Own Extension
+
+You can create a new extension skeleton with:
+
+``` bash
+quarto create extension my-ext --type=filter
+```
+
+Quarto supports extension types:
+
+-   `format` (custom format template)
+
+-   `filter` (Lua filter logic)
+
+-   `shortcode` (templating)
+
+-   `theme` (CSS)
+
+> For full reference: https://quarto.org/docs/extensions/
+
+## 7.5 Building a Quarto Template
+
+If you'd like to turn Evanbook into a reusable template:
+
+``` bash
+quarto use template evanbio/evanbook
+```
+
+Or share a structure via GitHub with a `template.qmd`, `_quarto.yml`, and `README.md`.

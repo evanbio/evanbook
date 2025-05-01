@@ -1,36 +1,108 @@
 project:
   type: book
+  output-dir: _book
 
 book:
   title: "Evanbook"
+  subtitle: "A Template for quarto"
   author: "Evan Zhou"
   date: today
+  date-format: medium
+  version: v0.1.0.9000
+
+  cover-image: images/cover-image.jpg
+
+
+  # favicon: images/astronaut.png     # 浏览器标签页图标
+
+  page-navigation: true             # 显示章节内的“上一页 / 下一页”
+  back-to-top-navigation: true      # 页面右下角回到顶部箭头
+  search: true                      # 是否启用全文搜索
+
+#  site-url: https://cleaning-data-r.ala.org.au/   # 网站主页地址（用于部署 & SEO）
+  repo-url: https://github.com/evanbio/evanbook
+  repo-actions: [edit]
+  downloads: [pdf, epub, docx]
+  sharing: [twitter, facebook, linkedin]
+
+
+  twitter-card:
+    image: images/astronaut.png
+    image-alt: "A cover image with a Pacific Cleaner Shrimp illustration"
+    card-style: summary_large_image
+
   sidebar:
     style: "docked"
-    background: "#F5F5F5"
-    logo: cover.png
+    logo: images/logo-input.png
     search: true
+
+  page-footer:
+    border: true
+    left: |
+      <a href="https://evanzhou.org">© Evan Zhou</a>
+    center: |
+     <img src="cover.png" width="30" style="margin:0 10px; border-radius:8px;" />
+     <strong>Evanbook</strong> · MIT License
+    right: |
+      Built with <a href="https://quarto.org/">Quarto</a>
+
+
   chapters:
     - index.qmd
-    - 02_get-started.qmd
-    - part: "Content Modules"
-      chapters:
-        - 03_usage.qmd
-        - 04_modules.qmd
-    - 05_appendix.qmd
 
-bibliography: references.bib
+    - preface.qmd
+
+    - part: "Getting Started"
+      chapters:
+        - 01_installation.qmd
+        - 02_quarto-basics.qmd
+
+    - part: "Workflow Modules"
+      chapters:
+        - 03_data-cleaning.qmd
+        - 04_visualization.qmd
+        - 05_reporting.qmd
+
+    - part: "Advanced Topics"
+      chapters:
+        - 06_interactivity.qmd
+        - 07_quarto-extensions.qmd
+        - 08_deployment.qmd
+
+    - part: "Appendices"
+      chapters:
+        - A1_reproducibility.qmd
+        - A2_git.qmd
+
+    - references.qmd
+
+bibliography:
+  - references.bib
 
 format:
   html:
     theme:
-      light: litera
+      light: cosmo
       dark: darkly
     toc: true
     number-sections: true
     code-copy: true
     css: styles.css
     include-after-body: _includes/after-body.html
+    cover-image: cover.png
+  pdf:
+    documentclass: scrreprt
+    cover-image: cover.png
+    include-in-header:
+      text: |
+        \usepackage{imakeidx}
+        \makeindex[intoc=true, columns=3, columnseprule=true, options=-s latex/indexstyles.ist]
+    include-after-body:
+      text: |
+        \printindex
 
 editor: visual
+
+comments:
+  hypothesis: true
 

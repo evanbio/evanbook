@@ -12,7 +12,7 @@
 
 ## Quick Start
 
-'''bash
+```bash
 
 quarto use template evanbio/evanbook
 # or clone manually:
@@ -20,10 +20,12 @@ git clone https://github.com/evanbio/evanbook.git
 cd evanbook
 quarto preview
 
-'''
+```
 
 
 ## Folder Structure
+
+```txt
 
 evanbook/
 ├── _quarto.yml
@@ -31,6 +33,8 @@ evanbook/
 ├── 01_index.qmd
 ├── 02_get-started.qmd
 ├── ...
+
+```
 
 ## License
 

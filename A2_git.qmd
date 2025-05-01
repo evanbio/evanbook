@@ -1,0 +1,39 @@
+# Using Git and GitHub
+
+Version control is essential for collaborative work and tracking progress.
+
+---
+
+## A2.1 Basic Git Workflow
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git push origin main
+```
+
+## A2.2 Recommended .gitignore
+```text
+_book/
+*.html
+.Rhistory
+.Rproj.user/
+.DS_Store
+```
+
+## A2.3 GitHub Integration
+- Create repo at https://github.com
+- Use quarto publish gh-pages to deploy
+- Use README.md + LICENSE + description for open projects
+
+## A2.4 Git in RStudio
+- Use built-in Git tab
+- Or install usethis:
+  
+```r
+usethis::use_git()
+usethis::use_github()
+```
+
+

@@ -1,0 +1,85 @@
+# Reporting and Output Formats
+
+Quarto supports multiple output formats with consistent source content.\
+This chapter explains how to control the report format and export behavior.
+
+------------------------------------------------------------------------
+
+## 5.1 Rendering to HTML
+
+The default output format is HTML:
+
+```yaml
+format:
+  html:
+    toc: true
+    number-sections: true
+```
+
+Render the report:
+
+```bash
+quarto render
+```
+
+Or preview:
+
+```bash
+quarto preview
+```
+
+## 5.2 Rendering to PDF
+
+You can also output to PDF using LaTeX:
+
+```yaml
+format:
+  pdf:
+    documentclass: article
+    toc: true
+```
+
+> 📦 Ensure LaTeX is installed. Use TinyTeX via `tinytex::install_tinytex()` in R.
+
+## 5.3 Rendering to Word or Markdown
+
+```yaml
+format:
+  docx: default
+
+```
+Useful for collaborators who use Microsoft Word.
+
+## 5.4 Multi-format Output
+You can specify multiple formats in one YAML:
+
+```yaml
+format:
+  html: default
+  pdf: default
+  docx: default
+
+```
+Use the dropdown in the top right corner of each page (HTML only).
+
+## 5.5 Controlling Code Display
+
+Use chunk options like:
+```{r}
+#| eval: false
+#| warning: false
+summary(df)
+```
+
+To hide code, suppress warnings, or customize output.
+
+## 5.6 Styling Reports
+
+Link a custom stylesheet in `_quarto.yml`:
+
+```yaml
+format:
+  html:
+    css: styles.css
+```
+

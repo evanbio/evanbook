@@ -13,5 +13,41 @@
   },
   "05_appendix.qmd": {
     "05_appendix.html": "7fada85b"
+  },
+  "preface.qmd": {
+    "preface.html": "41ebcf8b"
+  },
+  "01_installation.qmd": {
+    "01_installation.html": "eb626977"
+  },
+  "02_quarto-basics.qmd": {
+    "02_quarto-basics.html": "542629c7"
+  },
+  "03_data-cleaning.qmd": {
+    "03_data-cleaning.html": "9bdb2fc6"
+  },
+  "04_visualization.qmd": {
+    "04_visualization.html": "dd5ac101"
+  },
+  "05_reporting.qmd": {
+    "05_reporting.html": "56599a7a"
+  },
+  "06_interactivity.qmd": {
+    "06_interactivity.html": "f11630bb"
+  },
+  "07_quarto-extensions.qmd": {
+    "07_quarto-extensions.html": "ca45bbb2"
+  },
+  "08_deployment.qmd": {
+    "08_deployment.html": "9c3a1986"
+  },
+  "A1_reproducibility.qmd": {
+    "A1_reproducibility.html": "9fec6cc5"
+  },
+  "A2_git.qmd": {
+    "A2_git.html": "f92ecdb4"
+  },
+  "references.qmd": {
+    "references.html": "c6fd82f4"
   }
 }
