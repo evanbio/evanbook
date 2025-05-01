@@ -1,0 +1,41 @@
+/* Font & Layout */
+body {
+    font-family: "Noto Sans", "Helvetica Neue", "Microsoft YaHei", sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    background-color: #ffffff;
+  }
+  
+  /* Main content area */
+  main.content {
+    max-width: 850px;
+    margin: auto;
+    padding: 2rem;
+  }
+  
+  /* Headings */
+  h1, h2, h3, h4 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  /* Sidebar logo styling */
+  .sidebar .logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  
+  /* Code block customization */
+  pre, code {
+    font-family: "Fira Code", "JetBrains Mono", monospace;
+    font-size: 14px;
+  }
+  
+  /* TOC section highlight */
+  .toc-active {
+    color: #007acc;
+    font-weight: bold;
+  }
+  

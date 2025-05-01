@@ -1,0 +1,13 @@
+---
+title: "Welcome to EvanBook"
+format: html
+editor: visual
+---
+
+> This is a reusable Quarto Book template. Replace this page with your project introduction or landing page.
+
+## 📘 What's Included
+
+-   Pre-configured chapters
+-   Light/Dark mode
+-   Customizable CSS

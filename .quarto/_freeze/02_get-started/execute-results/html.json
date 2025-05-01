@@ -1,0 +1,12 @@
+{
+  "hash": "7d5395c31bb7cde0f53756ec67eebf25",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "# 🛠️ Getting Started\n\nReplace this page with usage instructions for your book.\n\n## 1. Clone this template\n\n```{bash}\n\ngit clone https://github.com/evanbio/evanbook.git\ncd evanbook-template\n```\n\n",
+    "supporting": [
+      "02_get-started_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

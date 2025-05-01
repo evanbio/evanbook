@@ -1,0 +1,36 @@
+project:
+  type: book
+
+book:
+  title: "Evanbook"
+  author: "Evan Zhou"
+  date: today
+  sidebar:
+    style: "docked"
+    background: "#F5F5F5"
+    logo: cover.png
+    search: true
+  chapters:
+    - index.qmd
+    - 02_get-started.qmd
+    - part: "Content Modules"
+      chapters:
+        - 03_usage.qmd
+        - 04_modules.qmd
+    - 05_appendix.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: litera
+      dark: darkly
+    toc: true
+    number-sections: true
+    code-copy: true
+    css: styles.css
+    include-after-body: _includes/after-body.html
+
+editor: visual
+

@@ -1,0 +1,23 @@
+# Quarto generated files
+_book/
+*.html
+*.ipynb
+*.pdf
+*.epub
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# VSCode / RStudio
+.vscode/
+.idea/
+*.code-workspace
+
+# Python (if any)
+__pycache__/
+*.pyc
+.venv/
+.env/

@@ -1,0 +1,9 @@
+# 📦 Usage Examples
+
+You can showcase example usage here:
+
+```{r}
+
+# This is an R example
+summary(mtcars)
+```

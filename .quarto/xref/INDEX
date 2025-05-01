@@ -1,0 +1,17 @@
+{
+  "index.qmd": {
+    "index.html": "118d5cf4"
+  },
+  "02_get-started.qmd": {
+    "02_get-started.html": "87c75688"
+  },
+  "03_usage.qmd": {
+    "03_usage.html": "4b50a662"
+  },
+  "04_modules.qmd": {
+    "04_modules.html": "ae2320e6"
+  },
+  "05_appendix.qmd": {
+    "05_appendix.html": "7fada85b"
+  }
+}

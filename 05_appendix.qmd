@@ -1,0 +1,8 @@
+# 📚 Appendix
+
+You can add:
+
+-   Additional references
+-   License information
+-   Acknowledgements
+-   FAQ
