@@ -1,0 +1,636 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Evanbook",
+    "section": "",
+    "text": "Index\n\n\nEvanbook\n\nA modern, modular, and professional Quarto Book template\n\n\nCreated by Evan Zhou ·\nPowered by Quarto\n\n📘 Start Reading →",
+    "crumbs": [
+      "Index"
+    ]
+  },
+  {
+    "objectID": "preface.html",
+    "href": "preface.html",
+    "title": "Preface",
+    "section": "",
+    "text": "Why this template?\nWhether you’re creating:\n- 📦 a package manual,\n- 🧪 a scientific project report, or\n- 📘 an educational book,\nEvanbook provides a clean and extensible starting point with opinionated structure and styling.\nThis book template was born out of the need for: - 🧱 structured content organization - 🎨 customizable and elegant visual design - 🛠️ R + Python + Markdown compatibility - 🗂️ multi-chapter publishing and web deployment",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "preface.html#who-should-use-evanbook",
+    "href": "preface.html#who-should-use-evanbook",
+    "title": "Preface",
+    "section": "Who should use Evanbook?",
+    "text": "Who should use Evanbook?\n\n🧑‍🎓 Researchers writing technical documentation\n🧑‍🏫 Instructors creating course material\n💻 Developers building package or API documentation\n🖋️ Writers seeking a professional digital publishing format",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "preface.html#structure-of-this-book",
+    "href": "preface.html#structure-of-this-book",
+    "title": "Preface",
+    "section": "Structure of this book",
+    "text": "Structure of this book\nEach part of this book demonstrates how to structure a multi-part Quarto project:\n\nGetting Started — project setup and tool basics\n\nWorkflow Modules — reusable writing components\n\nAdvanced Topics — deployment, extensions, customization\n\nAppendices — reproducibility, references, tooling\n\n\n📌 Feel free to customize this page with your own motivations and audience-specific notes.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "01_installation.html",
+    "href": "01_installation.html",
+    "title": "1  Installation and Setup",
+    "section": "",
+    "text": "1.1 1.1 Install Quarto\nBefore using this book template, ensure your environment is properly configured.\nYou can install Quarto from the official website:\nCheck version:",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "01_installation.html#install-quarto",
+    "href": "01_installation.html#install-quarto",
+    "title": "1  Installation and Setup",
+    "section": "",
+    "text": "https://quarto.org/docs/get-started\n\n# Windows/macOS/Linux\n# Download from the website and follow the installer instructions\n\n\nquarto --version",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "01_installation.html#install-r-and-rstudio",
+    "href": "01_installation.html#install-r-and-rstudio",
+    "title": "1  Installation and Setup",
+    "section": "1.2 1.2 Install R and RStudio",
+    "text": "1.2 1.2 Install R and RStudio\nIf you’re using R:\n\nInstall R from: https://cran.r-project.org\nInstall RStudio IDE from: https://posit.co/download/rstudio-desktop",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "01_installation.html#install-python-optional",
+    "href": "01_installation.html#install-python-optional",
+    "title": "1  Installation and Setup",
+    "section": "1.3 1.3 Install Python (optional)",
+    "text": "1.3 1.3 Install Python (optional)\nIf your book uses Python code blocks, install Python (≥ 3.8):\n# Install via Anaconda or python.org\npython --version\nOptional: set up a virtual environment using venv, conda, or virtualenv.",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "01_installation.html#recommended-tools",
+    "href": "01_installation.html#recommended-tools",
+    "title": "1  Installation and Setup",
+    "section": "1.4 1.4 Recommended Tools",
+    "text": "1.4 1.4 Recommended Tools\n\n\n\nTool\nPurpose\n\n\n\n\nQuarto\nRendering and publishing\n\n\nR / Python\nLanguage support\n\n\nVS Code\nLightweight editing\n\n\nGit + GitHub\nVersion control, deployment",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "01_installation.html#initialize-a-new-project",
+    "href": "01_installation.html#initialize-a-new-project",
+    "title": "1  Installation and Setup",
+    "section": "1.5 1.5 Initialize a New Project",
+    "text": "1.5 1.5 Initialize a New Project\nTo create a new project based on this template:\n\nquarto use template evanbio/evanbook\ncd evanbook\nquarto preview",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Installation and Setup</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html",
+    "href": "02_quarto-basics.html",
+    "title": "2  Quarto Basics",
+    "section": "",
+    "text": "2.1 2.1 Anatomy of a .qmd file\nThis chapter introduces the key components of a Quarto document and how to work with them interactively.\nEach Quarto document starts with a YAML header (metadata block), followed by markdown text and code chunks.\nsummary(mtcars)\n\n      mpg             cyl             disp             hp       \n Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  \n 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  \n Median :19.20   Median :6.000   Median :196.3   Median :123.0  \n Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  \n 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  \n Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  \n      drat             wt             qsec             vs        \n Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  \n 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  \n Median :3.695   Median :3.325   Median :17.71   Median :0.0000  \n Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  \n 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  \n Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  \n       am              gear            carb      \n Min.   :0.0000   Min.   :3.000   Min.   :1.000  \n 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  \n Median :0.0000   Median :4.000   Median :2.000  \n Mean   :0.4062   Mean   :3.688   Mean   :2.812  \n 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  \n Max.   :1.0000   Max.   :5.000   Max.   :8.000\nYou can use r, python, bash, and more as code chunk engines.",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html#anatomy-of-a-.qmd-file",
+    "href": "02_quarto-basics.html#anatomy-of-a-.qmd-file",
+    "title": "2  Quarto Basics",
+    "section": "",
+    "text": "---\ntitle: \"Example Document\"\nauthor: \"Evan\"\nformat: html\n---\n\n# Heading 1\n\nSome text.",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html#markdown-elements",
+    "href": "02_quarto-basics.html#markdown-elements",
+    "title": "2  Quarto Basics",
+    "section": "2.2 2.2 Markdown Elements",
+    "text": "2.2 2.2 Markdown Elements\nQuarto supports standard Markdown syntax:\n\nBold, italic, code\nLists: - item, 1. item\nLinks: [text](url)\nImages: ![](image.png)\nTables:\n\n\n\n\nName\nValue\n\n\n\n\nA\n100\n\n\nB\n200",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html#code-chunks",
+    "href": "02_quarto-basics.html#code-chunks",
+    "title": "2  Quarto Basics",
+    "section": "2.3 2.3 Code Chunks",
+    "text": "2.3 2.3 Code Chunks\nCode chunks are delimited by triple backticks and {lang}:\n\n# R chunk\nsummary(iris)\n\n  Sepal.Length    Sepal.Width     Petal.Length    Petal.Width   \n Min.   :4.300   Min.   :2.000   Min.   :1.000   Min.   :0.100  \n 1st Qu.:5.100   1st Qu.:2.800   1st Qu.:1.600   1st Qu.:0.300  \n Median :5.800   Median :3.000   Median :4.350   Median :1.300  \n Mean   :5.843   Mean   :3.057   Mean   :3.758   Mean   :1.199  \n 3rd Qu.:6.400   3rd Qu.:3.300   3rd Qu.:5.100   3rd Qu.:1.800  \n Max.   :7.900   Max.   :4.400   Max.   :6.900   Max.   :2.500  \n       Species  \n setosa    :50  \n versicolor:50  \n virginica :50  \n                \n                \n                \n\n\nUse echo, eval, warning, message chunk options to control output.",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html#rendering-documents",
+    "href": "02_quarto-basics.html#rendering-documents",
+    "title": "2  Quarto Basics",
+    "section": "2.4 2.4 Rendering Documents",
+    "text": "2.4 2.4 Rendering Documents\nTo preview your book:\nquarto preview\nTo render all chapters:\nquarto render\nYou can also render individual .qmd files if needed.",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "02_quarto-basics.html#directory-structure",
+    "href": "02_quarto-basics.html#directory-structure",
+    "title": "2  Quarto Basics",
+    "section": "2.5 2.5 Directory Structure",
+    "text": "2.5 2.5 Directory Structure\nTypical Quarto book structure:\nevanbook/\n├── _quarto.yml\n├── styles.css\n├── index.qmd\n├── 01_installation.qmd\n├── 02_quarto-basics.qmd\n└── ...",
+    "crumbs": [
+      "Getting Started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Quarto Basics</span>"
+    ]
+  },
+  {
+    "objectID": "03_data-cleaning.html",
+    "href": "03_data-cleaning.html",
+    "title": "3  Data Cleaning Essentials",
+    "section": "",
+    "text": "3.1 3.1 Inspecting Data\nData cleaning is one of the most critical steps in any data workflow.\nThis chapter outlines reusable strategies for cleaning and preparing your data for analysis.\nUse tools like summary(), str(), or skimr::skim() to understand the structure and quality of your dataset.\nsummary(mtcars)\n\n      mpg             cyl             disp             hp       \n Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  \n 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  \n Median :19.20   Median :6.000   Median :196.3   Median :123.0  \n Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  \n 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  \n Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  \n      drat             wt             qsec             vs        \n Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  \n 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  \n Median :3.695   Median :3.325   Median :17.71   Median :0.0000  \n Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  \n 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  \n Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  \n       am              gear            carb      \n Min.   :0.0000   Min.   :3.000   Min.   :1.000  \n 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  \n Median :0.0000   Median :4.000   Median :2.000  \n Mean   :0.4062   Mean   :3.688   Mean   :2.812  \n 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  \n Max.   :1.0000   Max.   :5.000   Max.   :8.000",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Cleaning Essentials</span>"
+    ]
+  },
+  {
+    "objectID": "03_data-cleaning.html#handling-missing-values",
+    "href": "03_data-cleaning.html#handling-missing-values",
+    "title": "3  Data Cleaning Essentials",
+    "section": "3.2 3.2 Handling Missing Values",
+    "text": "3.2 3.2 Handling Missing Values\nCommon approaches include:\n\nRemoving rows with NA\nImputing values\nUsing domain knowledge to infer missing information\n\n\n# Drop rows with missing values\nclean_data &lt;- na.omit(raw_data)",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Cleaning Essentials</span>"
+    ]
+  },
+  {
+    "objectID": "03_data-cleaning.html#removing-duplicates",
+    "href": "03_data-cleaning.html#removing-duplicates",
+    "title": "3  Data Cleaning Essentials",
+    "section": "3.3 3.3 Removing Duplicates",
+    "text": "3.3 3.3 Removing Duplicates\n\nclean_data &lt;- distinct(raw_data)\n\nUse duplicated(), distinct() (dplyr), or janitor::get_dupes().",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Cleaning Essentials</span>"
+    ]
+  },
+  {
+    "objectID": "03_data-cleaning.html#standardizing-column-names",
+    "href": "03_data-cleaning.html#standardizing-column-names",
+    "title": "3  Data Cleaning Essentials",
+    "section": "3.4 3.4 Standardizing Column Names",
+    "text": "3.4 3.4 Standardizing Column Names\n\nlibrary(janitor)\nclean_data &lt;- raw_data |&gt; janitor::clean_names()",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Cleaning Essentials</span>"
+    ]
+  },
+  {
+    "objectID": "03_data-cleaning.html#string-cleaning",
+    "href": "03_data-cleaning.html#string-cleaning",
+    "title": "3  Data Cleaning Essentials",
+    "section": "3.5 3.5 String Cleaning",
+    "text": "3.5 3.5 String Cleaning\nUse stringr::str_trim(), str_to_lower(), etc., to normalize text.\n\nlibrary(stringr)\ndf$name &lt;- str_to_title(str_trim(df$name))",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Cleaning Essentials</span>"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html",
+    "href": "04_visualization.html",
+    "title": "4  Data Visualization Basics",
+    "section": "",
+    "text": "4.1 4.1 The Grammar of Graphics\nThis chapter introduces the basics of data visualization using ggplot2.\nThe core idea of ggplot2 is to build plots layer by layer:\nlibrary(ggplot2)\n\nggplot(mtcars, aes(x = mpg, y = hp)) +\n  geom_point()",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Visualization Basics</span>"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html#common-plot-types",
+    "href": "04_visualization.html#common-plot-types",
+    "title": "4  Data Visualization Basics",
+    "section": "4.2 4.2 Common Plot Types",
+    "text": "4.2 4.2 Common Plot Types\n\n4.2.1 📊 Bar Chart\n\nggplot(mpg, aes(class)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n4.2.2 📦 Boxplot\n\nggplot(mpg, aes(class, hwy)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\n\n4.2.3 🟢 Scatter Plot\n\nggplot(mtcars, aes(wt, mpg)) +\n  geom_point()",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Visualization Basics</span>"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html#themes-and-aesthetics",
+    "href": "04_visualization.html#themes-and-aesthetics",
+    "title": "4  Data Visualization Basics",
+    "section": "4.3 4.3 Themes and Aesthetics",
+    "text": "4.3 4.3 Themes and Aesthetics\nUse theme_minimal(), theme_classic() and control colors, sizes, and fonts.\n\nggplot(mpg, aes(class, hwy)) +\n  geom_boxplot() +\n  theme_minimal()",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Visualization Basics</span>"
+    ]
+  },
+  {
+    "objectID": "04_visualization.html#exporting-figures",
+    "href": "04_visualization.html#exporting-figures",
+    "title": "4  Data Visualization Basics",
+    "section": "4.4 4.4 Exporting Figures",
+    "text": "4.4 4.4 Exporting Figures\nSave your plot with:\n\nggsave(\"my-plot.png\", width = 6, height = 4, dpi = 300)",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Visualization Basics</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html",
+    "href": "05_reporting.html",
+    "title": "5  Reporting and Output Formats",
+    "section": "",
+    "text": "5.1 5.1 Rendering to HTML\nQuarto supports multiple output formats with consistent source content.\nThis chapter explains how to control the report format and export behavior.\nThe default output format is HTML:\nRender the report:\nOr preview:",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#rendering-to-html",
+    "href": "05_reporting.html#rendering-to-html",
+    "title": "5  Reporting and Output Formats",
+    "section": "",
+    "text": "format:\n  html:\n    toc: true\n    number-sections: true\n\nquarto render\n\nquarto preview",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#rendering-to-pdf",
+    "href": "05_reporting.html#rendering-to-pdf",
+    "title": "5  Reporting and Output Formats",
+    "section": "5.2 5.2 Rendering to PDF",
+    "text": "5.2 5.2 Rendering to PDF\nYou can also output to PDF using LaTeX:\nformat:\n  pdf:\n    documentclass: article\n    toc: true\n\n📦 Ensure LaTeX is installed. Use TinyTeX via tinytex::install_tinytex() in R.",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#rendering-to-word-or-markdown",
+    "href": "05_reporting.html#rendering-to-word-or-markdown",
+    "title": "5  Reporting and Output Formats",
+    "section": "5.3 5.3 Rendering to Word or Markdown",
+    "text": "5.3 5.3 Rendering to Word or Markdown\nformat:\n  docx: default\nUseful for collaborators who use Microsoft Word.",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#multi-format-output",
+    "href": "05_reporting.html#multi-format-output",
+    "title": "5  Reporting and Output Formats",
+    "section": "5.4 5.4 Multi-format Output",
+    "text": "5.4 5.4 Multi-format Output\nYou can specify multiple formats in one YAML:\nformat:\n  html: default\n  pdf: default\n  docx: default\nUse the dropdown in the top right corner of each page (HTML only).",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#controlling-code-display",
+    "href": "05_reporting.html#controlling-code-display",
+    "title": "5  Reporting and Output Formats",
+    "section": "5.5 5.5 Controlling Code Display",
+    "text": "5.5 5.5 Controlling Code Display\nUse chunk options like:\n\nsummary(df)\n\nTo hide code, suppress warnings, or customize output.",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "05_reporting.html#styling-reports",
+    "href": "05_reporting.html#styling-reports",
+    "title": "5  Reporting and Output Formats",
+    "section": "5.6 5.6 Styling Reports",
+    "text": "5.6 5.6 Styling Reports\nLink a custom stylesheet in _quarto.yml:\nformat:\n  html:\n    css: styles.css",
+    "crumbs": [
+      "Workflow Modules",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Reporting and Output Formats</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html",
+    "href": "06_interactivity.html",
+    "title": "6  Interactive Content in Quarto",
+    "section": "",
+    "text": "6.1 6.1 Using htmlwidgets\nQuarto supports various forms of interactive content to enrich your document and engage your audience.\nYou can embed interactive widgets from R directly:\nlibrary(plotly)\nplot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length, color = ~Species, type = 'scatter', mode = 'markers')\nOther useful widgets:\nThese are rendered as interactive HTML widgets in the output.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html#using-htmlwidgets",
+    "href": "06_interactivity.html#using-htmlwidgets",
+    "title": "6  Interactive Content in Quarto",
+    "section": "",
+    "text": "DT::datatable()\nleaflet::leaflet()",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html#embedding-shiny-apps",
+    "href": "06_interactivity.html#embedding-shiny-apps",
+    "title": "6  Interactive Content in Quarto",
+    "section": "6.2 6.2 Embedding Shiny Apps",
+    "text": "6.2 6.2 Embedding Shiny Apps\nYou can embed Shiny apps inside a Quarto document:\n\nselectInput(\"var\", \"Variable\", choices = names(mtcars))\nrenderPlot({\n  hist(mtcars[[input$var]])\n})\n\n\n📌 Requires runtime: shiny in the YAML header.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html#observable-js-blocks",
+    "href": "06_interactivity.html#observable-js-blocks",
+    "title": "6  Interactive Content in Quarto",
+    "section": "6.3 6.3 Observable JS Blocks",
+    "text": "6.3 6.3 Observable JS Blocks\nUse Observable blocks to embed JavaScript-powered interactivity:\n\nPlot.plot({\n  marks: [\n    Plot.dotY([1, 2, 4, 8, 16])\n  ]\n})\n\n\n\n\n\n\n\nQuarto automatically includes Observable runtime when needed.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html#code-folding-and-reveal",
+    "href": "06_interactivity.html#code-folding-and-reveal",
+    "title": "6  Interactive Content in Quarto",
+    "section": "6.4 6.4 Code Folding and Reveal",
+    "text": "6.4 6.4 Code Folding and Reveal\nEnable collapsible code blocks:\nformat:\n  html:\n    code-fold: true\nUse revealjs format for slideshow-like interaction:\nformat:\n  html:\n    code-fold: true",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "06_interactivity.html#user-input-reactive-output-shiny",
+    "href": "06_interactivity.html#user-input-reactive-output-shiny",
+    "title": "6  Interactive Content in Quarto",
+    "section": "6.5 6.5 User Input + Reactive Output (Shiny)",
+    "text": "6.5 6.5 User Input + Reactive Output (Shiny)\nUse input/output bindings to create small tools or exploratory panels.\n\nsliderInput(\"bins\", \"Number of Bins\", min = 1, max = 50, value = 30)\nrenderPlot({\n  hist(faithful$waiting, breaks = input$bins)\n})",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Interactive Content in Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html",
+    "href": "07_quarto-extensions.html",
+    "title": "7  Extending Quarto",
+    "section": "",
+    "text": "7.1 7.1 What is a Quarto Extension?\nQuarto is designed to be extensible. This chapter introduces how to install, use, and create extensions such as themes, filters, and shortcodes.\nAn extension is a reusable bundle that can include:\nThey can be published to GitHub and installed via quarto add.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html#what-is-a-quarto-extension",
+    "href": "07_quarto-extensions.html#what-is-a-quarto-extension",
+    "title": "7  Extending Quarto",
+    "section": "",
+    "text": "🧩 Themes (CSS, SCSS)\n🛠️ Lua filters\n🔧 Shortcodes\n📚 Project templates",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html#installing-extensions",
+    "href": "07_quarto-extensions.html#installing-extensions",
+    "title": "7  Extending Quarto",
+    "section": "7.2 7.2 Installing Extensions",
+    "text": "7.2 7.2 Installing Extensions\nTo install an extension:\nquarto add quarto-ext/fontawesome\nThis will download the extension and add it to your project’s _extensions/ folder.\nOther examples:\nquarto add quarto-ext/clean\nquarto add quarto-ext/authoring\nList installed extensions:\nquarto list",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html#using-extensions",
+    "href": "07_quarto-extensions.html#using-extensions",
+    "title": "7  Extending Quarto",
+    "section": "7.3 7.3 Using Extensions",
+    "text": "7.3 7.3 Using Extensions\nExample: using the Font Awesome icon extension:\n\nThis is a book icon\n\nThemes:\nformat:\n  html:\n    theme: [cosmo, clean]",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html#creating-your-own-extension",
+    "href": "07_quarto-extensions.html#creating-your-own-extension",
+    "title": "7  Extending Quarto",
+    "section": "7.4 7.4 Creating Your Own Extension",
+    "text": "7.4 7.4 Creating Your Own Extension\nYou can create a new extension skeleton with:\nquarto create extension my-ext --type=filter\nQuarto supports extension types:\n\nformat (custom format template)\nfilter (Lua filter logic)\nshortcode (templating)\ntheme (CSS)\n\n\nFor full reference: https://quarto.org/docs/extensions/",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "07_quarto-extensions.html#building-a-quarto-template",
+    "href": "07_quarto-extensions.html#building-a-quarto-template",
+    "title": "7  Extending Quarto",
+    "section": "7.5 7.5 Building a Quarto Template",
+    "text": "7.5 7.5 Building a Quarto Template\nIf you’d like to turn Evanbook into a reusable template:\nquarto use template evanbio/evanbook\nOr share a structure via GitHub with a template.qmd, _quarto.yml, and README.md.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Extending Quarto</span>"
+    ]
+  },
+  {
+    "objectID": "08_deployment.html",
+    "href": "08_deployment.html",
+    "title": "8  Deployment and Publishing",
+    "section": "",
+    "text": "8.1 8.1 Rendering the Site\nOnce your Quarto book is complete, you can publish it as a website for others to read and reuse.\nBuild your book locally with:\nThe output will be saved in the output-dir, typically _book/.\nPreview locally:",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deployment and Publishing</span>"
+    ]
+  },
+  {
+    "objectID": "08_deployment.html#rendering-the-site",
+    "href": "08_deployment.html#rendering-the-site",
+    "title": "8  Deployment and Publishing",
+    "section": "",
+    "text": "quarto render\n\n\nquarto preview",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deployment and Publishing</span>"
+    ]
+  },
+  {
+    "objectID": "08_deployment.html#publishing-to-github-pages",
+    "href": "08_deployment.html#publishing-to-github-pages",
+    "title": "8  Deployment and Publishing",
+    "section": "8.2 8.2 Publishing to GitHub Pages",
+    "text": "8.2 8.2 Publishing to GitHub Pages\n\n8.2.1 ✅ Step 1: Push your book to GitHub\nMake sure your _book/ folder is not ignored if you’re pushing directly.\ngit add .\ngit commit -m \"deploy: render book\"\ngit push origin main\n\n\n8.2.2 ✅ Step 2: Deploy via gh-pages branch\nYou can use the official GitHub Actions:\nquarto publish gh-pages\n\nAutomatically creates and deploys to the gh-pages branch.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deployment and Publishing</span>"
+    ]
+  },
+  {
+    "objectID": "08_deployment.html#publishing-via-netlify",
+    "href": "08_deployment.html#publishing-via-netlify",
+    "title": "8  Deployment and Publishing",
+    "section": "8.3 8.3 Publishing via Netlify",
+    "text": "8.3 8.3 Publishing via Netlify\n\n8.3.1 ✅ Step 1: Link GitHub repo in Netlify\n\n\n8.3.2 ✅ Step 2: Set build command\nquarto render\n✅ Step 3: Set publish directory:\n_book\n\nPush to GitHub → Netlify auto-builds → auto-publishes.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deployment and Publishing</span>"
+    ]
+  },
+  {
+    "objectID": "08_deployment.html#publishing-via-vercel-optional",
+    "href": "08_deployment.html#publishing-via-vercel-optional",
+    "title": "8  Deployment and Publishing",
+    "section": "8.4 8.4 Publishing via Vercel (Optional)",
+    "text": "8.4 8.4 Publishing via Vercel (Optional)\n\nUpload static _book/ to /public\nOr use Vercel CLI\n\nNote: Vercel is better for dynamic content (like APIs); Netlify is preferred for books.",
+    "crumbs": [
+      "Advanced Topics",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Deployment and Publishing</span>"
+    ]
+  },
+  {
+    "objectID": "A1_reproducibility.html",
+    "href": "A1_reproducibility.html",
+    "title": "9  Reproducibility and Project Organization",
+    "section": "",
+    "text": "9.1 A1.1 Organizing Your Project\nEnsuring reproducibility is a cornerstone of good scientific and analytical practice.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reproducibility and Project Organization</span>"
+    ]
+  },
+  {
+    "objectID": "A1_reproducibility.html#a1.1-organizing-your-project",
+    "href": "A1_reproducibility.html#a1.1-organizing-your-project",
+    "title": "9  Reproducibility and Project Organization",
+    "section": "",
+    "text": "Use a consistent folder structure: data/, scripts/, output/, figures/\nTrack raw vs. processed data separately\nAlways include a README.md",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reproducibility and Project Organization</span>"
+    ]
+  },
+  {
+    "objectID": "A1_reproducibility.html#a1.2-managing-dependencies",
+    "href": "A1_reproducibility.html#a1.2-managing-dependencies",
+    "title": "9  Reproducibility and Project Organization",
+    "section": "9.2 A1.2 Managing Dependencies",
+    "text": "9.2 A1.2 Managing Dependencies\n\n9.2.1 R:\nUse {renv} to lock your R environment:\ninstall.packages(\"renv\")\nrenv::init()\n\n\n9.2.2 Python:\nUse virtualenv, venv, or conda for isolation.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reproducibility and Project Organization</span>"
+    ]
+  },
+  {
+    "objectID": "A1_reproducibility.html#a1.3-quarto-tips",
+    "href": "A1_reproducibility.html#a1.3-quarto-tips",
+    "title": "9  Reproducibility and Project Organization",
+    "section": "9.3 A1.3 Quarto Tips",
+    "text": "9.3 A1.3 Quarto Tips\n\nUse freeze: auto in _quarto.yml to cache outputs\nAlways set execute: chunk-level control\nConsider storing all outputs in /output/ and images in /figures/",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Reproducibility and Project Organization</span>"
+    ]
+  },
+  {
+    "objectID": "A2_git.html",
+    "href": "A2_git.html",
+    "title": "10  Using Git and GitHub",
+    "section": "",
+    "text": "10.1 A2.1 Basic Git Workflow\nVersion control is essential for collaborative work and tracking progress.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Using Git and GitHub</span>"
+    ]
+  },
+  {
+    "objectID": "A2_git.html#a2.1-basic-git-workflow",
+    "href": "A2_git.html#a2.1-basic-git-workflow",
+    "title": "10  Using Git and GitHub",
+    "section": "",
+    "text": "git init\ngit add .\ngit commit -m \"Initial commit\"\ngit push origin main",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Using Git and GitHub</span>"
+    ]
+  },
+  {
+    "objectID": "A2_git.html#a2.2-recommended-.gitignore",
+    "href": "A2_git.html#a2.2-recommended-.gitignore",
+    "title": "10  Using Git and GitHub",
+    "section": "10.2 A2.2 Recommended .gitignore",
+    "text": "10.2 A2.2 Recommended .gitignore\n_book/\n*.html\n.Rhistory\n.Rproj.user/\n.DS_Store",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Using Git and GitHub</span>"
+    ]
+  },
+  {
+    "objectID": "A2_git.html#a2.3-github-integration",
+    "href": "A2_git.html#a2.3-github-integration",
+    "title": "10  Using Git and GitHub",
+    "section": "10.3 A2.3 GitHub Integration",
+    "text": "10.3 A2.3 GitHub Integration\n\nCreate repo at https://github.com\nUse quarto publish gh-pages to deploy\nUse README.md + LICENSE + description for open projects",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Using Git and GitHub</span>"
+    ]
+  },
+  {
+    "objectID": "A2_git.html#a2.4-git-in-rstudio",
+    "href": "A2_git.html#a2.4-git-in-rstudio",
+    "title": "10  Using Git and GitHub",
+    "section": "10.4 A2.4 Git in RStudio",
+    "text": "10.4 A2.4 Git in RStudio\n\nUse built-in Git tab\nOr install usethis:\n\nusethis::use_git()\nusethis::use_github()",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Using Git and GitHub</span>"
+    ]
+  }
+]

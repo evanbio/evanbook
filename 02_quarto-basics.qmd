@@ -50,13 +50,6 @@ Code chunks are delimited by triple backticks and `{lang}`:
 summary(iris)
 ```
 
-```{python}
-#| eval: false
-#| 
-# Python chunk
-print("Hello from Python")
-```
-
 Use `echo`, `eval`, `warning`, `message` chunk options to control output.
 
 ## 2.4 Rendering Documents
