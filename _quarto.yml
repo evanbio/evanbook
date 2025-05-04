@@ -10,7 +10,7 @@ book:
   date-format: medium
   version: v0.1.0.9000
 
-  cover-image: images/icon.png
+  # cover-image: images/icon.png
 
 
   # favicon: images/astronaut.png     # 浏览器标签页图标
@@ -33,7 +33,7 @@ book:
 
   sidebar:
     style: "docked"
-    logo: images/logo-input.png
+    logo: images/icon.png
     search: true
 
   page-footer:
@@ -41,7 +41,7 @@ book:
     left: |
       <a href="https://evanzhou.org">© Evan Zhou</a>
     center: |
-     <img src="cover.png" width="30" style="margin:0 10px; border-radius:8px;" />
+     <img src="images/icon.png" width="30" style="margin:0 10px; border-radius:8px;" />
      <strong>Evanbook</strong> · MIT License
     right: |
       Built with <a href="https://quarto.org/">Quarto</a>
@@ -88,11 +88,13 @@ format:
     number-sections: true
     code-copy: true
     css: styles.css
-    include-after-body: _includes/after-body.html
-    cover-image: cover.png
+#    include-after-body: _includes/after-body.html
+#    include-before-body: _includes/top-buttons.html
+    
+    # cover-image: cover.png
   pdf:
     documentclass: scrreprt
-    cover-image: cover.png
+    # cover-image: cover.png
     include-in-header:
       text: |
         \usepackage{imakeidx}

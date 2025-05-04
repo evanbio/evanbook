@@ -74,3 +74,20 @@ pre, code {
   border-left-width: 4px;
   border-radius: 6px;
 }
+
+#top-buttons a,
+#top-buttons button {
+  text-decoration: none;
+  padding: 0.3em 0.6em;
+  font-size: 0.95rem;
+  background: var(--quarto-callout-bg);
+  border: 1px solid var(--quarto-border-color);
+  border-radius: 5px;
+  color: var(--quarto-fg);
+}
+
+#top-buttons a:hover,
+#top-buttons button:hover {
+  background-color: var(--quarto-hl);
+  color: var(--quarto-on-hl);
+}
