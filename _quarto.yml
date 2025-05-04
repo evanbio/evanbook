@@ -10,7 +10,7 @@ book:
   date-format: medium
   version: v0.1.0.9000
 
-  cover-image: images/cover-image.jpg
+  cover-image: images/icon.png
 
 
   # favicon: images/astronaut.png     # 浏览器标签页图标
