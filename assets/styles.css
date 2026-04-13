@@ -6,9 +6,13 @@
 
 .book-meta {
   font-style: italic;
-  line-height: 2;
   margin-bottom: 2.5rem;
   color: #333;
+}
+
+.book-meta p {
+  margin: 0;
+  line-height: 2;
 }
 
 .book-meta strong {
