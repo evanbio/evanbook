@@ -4,39 +4,19 @@
     "href": "index.html",
     "title": "Evanbook",
     "section": "",
-    "text": "Welcome\n\nEvanbook\nCode. Visualize. Repeat.\n\nby Evan Zhou\n\n\nStart Reading →\n\n\n\n\n\nVisualization Color palettes, plot design, ggplot2 workflows\n\n\nTooling R packages, CLI tools, environment setup\n\n\nWorkflows Data pipelines, reproducible analysis, reporting\n\n\nReferences Cheatsheets, snippets, quick lookups",
+    "text": "Preface\n\nAuthor: Yibin Zhou Version: v0.1.0 Created: Apr 13, 2026 Modified: Apr 13, 2026 License: CC BY 4.0 Source: github.com/evanbio/evanbook\n\nThis book began as a private folder of notes — code that worked, plots that finally looked right, pipelines rebuilt from scratch one time too many. At some point the notes became dense enough to deserve a structure.\nI work in R, on questions that sit at the intersection of pharmacology, oncology, and single-cell genomics. Most of that work involves translating biological problems into computational ones: how do you represent a cell state? How do you visualize a matrix with twenty thousand genes in a way that a clinician can read? How do you make an analysis that still runs six months later, on a machine you don’t own?\nThis book is my attempt to write those answers down — not as a textbook, but as a working record. The code here is code I actually use. The decisions here are decisions I actually had to make. Where I found a better way later, I noted it.\nIf you are a researcher who writes code to understand biology, I hope something here saves you an afternoon.\n\n\n\n\n\n\nNoteLatest Update\n\n\n\nApr 13, 2026 — Initial release. See all updates →",
     "crumbs": [
-      "Welcome"
+      "Preface"
     ]
   },
   {
-    "objectID": "preface.html",
-    "href": "preface.html",
-    "title": "Preface",
+    "objectID": "news.html",
+    "href": "news.html",
+    "title": "News",
     "section": "",
-    "text": "Why this template?\nWhether you’re creating:\n- 📦 a package manual,\n- 🧪 a scientific project report, or\n- 📘 an educational book,\nEvanbook provides a clean and extensible starting point with opinionated structure and styling.\nThis book template was born out of the need for: - 🧱 structured content organization - 🎨 customizable and elegant visual design - 🛠️ R + Python + Markdown compatibility - 🗂️ multi-chapter publishing and web deployment",
+    "text": "Apr 13, 2026 — Initial release.",
     "crumbs": [
-      "Preface"
-    ]
-  },
-  {
-    "objectID": "preface.html#who-should-use-evanbook",
-    "href": "preface.html#who-should-use-evanbook",
-    "title": "Preface",
-    "section": "Who should use Evanbook?",
-    "text": "Who should use Evanbook?\n\n🧑‍🎓 Researchers writing technical documentation\n🧑‍🏫 Instructors creating course material\n💻 Developers building package or API documentation\n🖋️ Writers seeking a professional digital publishing format",
-    "crumbs": [
-      "Preface"
-    ]
-  },
-  {
-    "objectID": "preface.html#structure-of-this-book",
-    "href": "preface.html#structure-of-this-book",
-    "title": "Preface",
-    "section": "Structure of this book",
-    "text": "Structure of this book\nEach part of this book demonstrates how to structure a multi-part Quarto project:\n\nGetting Started — project setup and tool basics\n\nWorkflow Modules — reusable writing components\n\nAdvanced Topics — deployment, extensions, customization\n\nAppendices — reproducibility, references, tooling\n\n\n📌 Feel free to customize this page with your own motivations and audience-specific notes.",
-    "crumbs": [
-      "Preface"
+      "News"
     ]
   },
   {
