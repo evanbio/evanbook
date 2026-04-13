@@ -2,6 +2,11 @@
    Evanbook — custom styles
    ============================================================ */
 
+/* Hide auto-generated book title block on index page */
+.quarto-title-block {
+  display: none;
+}
+
 /* Preface metadata block */
 
 .book-meta {
