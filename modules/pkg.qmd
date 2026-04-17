@@ -1,5 +1,5 @@
 ---
-title: "Package Module"
+title: "Pkg"
 ---
 
 The `pkg` module is the package-management edge of `evanverse`. It no longer

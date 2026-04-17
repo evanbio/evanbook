@@ -1,5 +1,5 @@
 ---
-title: "Plot Module"
+title: "Plot"
 ---
 
 The `plot` module is the publication-plotting layer of `evanverse`. It

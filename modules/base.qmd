@@ -1,5 +1,5 @@
 ---
-title: "Base Module"
+title: "Base"
 ---
 
 The `base` module is the small-utility layer of `evanverse`. It collects
