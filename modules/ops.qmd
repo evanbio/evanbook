@@ -1,0 +1,117 @@
+---
+title: "Ops Module"
+---
+
+The `ops` module provides compact infix operators for common interactive and
+pipeline work. These operators are intentionally small, but their contracts need
+to be precise because infix syntax hides function calls inside expressions.
+
+## Scope
+
+`R/ops.R` currently exports five operators:
+
+| Operator | Role |
+|---|---|
+| `%p%` | Paste two character vectors with a single space |
+| `%nin%` | Negated `%in%`, preserving base R membership semantics |
+| `%match%` | Case-insensitive character matching that returns indices |
+| `%map%` | Case-insensitive character matching that returns named values |
+| `%is%` | Strict identity comparison via `base::identical()` |
+
+## Design Contract
+
+### `%p%` Is Safer Than Plain `paste()`
+
+`%p%` is meant for readable string assembly. It accepts character vectors
+without `NA` values. Empty strings are allowed, and the separating space is
+always inserted.
+
+Length handling is intentionally stricter than `paste()`:
+
+- equal lengths are allowed;
+- one side may have length 1 and be recycled;
+- other unequal lengths error.
+
+This avoids accidental partial recycling in labels, annotations, and messages.
+
+### `%nin%` Mirrors Base R
+
+`%nin%` is exactly `!(x %in% table)`. It accepts any type, follows base R
+coercion rules, and preserves base R behavior for `NA` and empty vectors.
+
+This operator should stay boring. Its value is readability, not new semantics.
+
+### `%match%` And `%map%` Are Strict Character Tools
+
+`%match%` and `%map%` are designed for case-insensitive character matching,
+especially gene-symbol style workflows.
+
+Both sides must be non-empty character vectors without `NA` or empty string
+values. Empty query or table values usually indicate dirty upstream data, so the
+operators fail early.
+
+Both operators normalize with `tolower()`. If `table` contains duplicated values
+after normalization, they warn and use the first match.
+
+### `%map%` Drops Unmatched Values
+
+`%map%` is not a length-preserving mapper. It returns only successful matches as
+a named character vector:
+
+- names are canonical entries from `table`;
+- values are original entries from `x`;
+- output order follows `x`;
+- unmatched entries are dropped.
+
+This makes `%map%` useful for building compact alias-to-canonical mappings. Use
+`%match%` when unmatched positions need to be retained as `NA`.
+
+### `%is%` Is Just Identity
+
+`%is%` wraps `base::identical()`. It accepts any object and returns one logical
+value. It should remain a thin readability helper rather than gaining custom
+comparison rules.
+
+## Review Notes
+
+The latest review focused on four issues:
+
+1. `%p%` allowed non-length-1 unequal recycling through `paste()`.
+2. `%match%` and `%map%` rejected `NA` and `character(0)` but allowed empty
+   strings.
+3. `%match%` and `%map%` silently used the first table value when case
+   normalization created duplicates.
+4. `%match%` documentation had a small grammar issue: "a upstream" should be
+   "an upstream".
+
+The fixes made the operator contracts more explicit while preserving the
+existing high-level design.
+
+## Tests
+
+The focused ops test suite lives in `tests/testthat/test-ops.R`.
+
+Latest focused run:
+
+```text
+devtools::test(filter = "ops")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 63 ]
+```
+
+The important tests are contract tests:
+
+- `%p%` rejects incompatible vector lengths;
+- `%match%` and `%map%` reject empty strings;
+- `%match%` and `%map%` warn on duplicated normalized `table` values;
+- `%nin%` continues to mirror base R behavior for `NA`, empty vectors, and type
+  coercion;
+- `%is%` remains strict identity comparison.
+
+## Open Questions
+
+- Whether `%match%` and `%map%` should eventually use Unicode-aware case
+  folding instead of `tolower()`.
+- Whether `%map%` should have a length-preserving companion if future workflows
+  need `NA` placeholders instead of dropped unmatched entries.
+- Whether duplicated normalized `table` values should remain a warning or
+  become an error in stricter bioinformatics workflows.

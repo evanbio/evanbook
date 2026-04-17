@@ -1,0 +1,154 @@
+---
+title: "Plot Module"
+---
+
+The `plot` module is the publication-plotting layer of `evanverse`. It
+collects common plotting helpers for summaries, distributions, set overlaps,
+and forest plots. The functions are meant to be convenient wrappers around
+`ggplot2`, `ggvenn`, `ggVennDiagram`, and `forestploter`, while keeping input
+contracts explicit enough for analysis pipelines.
+
+This module should stay focused on predictable plotting primitives. It should
+not become a general grammar-of-graphics replacement; the goal is to cover
+repeated project patterns with clear defaults and early validation.
+
+## Scope
+
+`R/plot.R` currently exports five functions:
+
+| Group | Functions | Role |
+|---|---|---|
+| Summary plots | `plot_bar()`, `plot_pie()` | Display grouped counts, pre-computed summaries, and composition |
+| Distribution plots | `plot_density()` | Draw univariate distributions with optional grouping and faceting |
+| Set overlap plots | `plot_venn()` | Draw 2-4 set Venn diagrams with optional returned set membership |
+| Effect-size plots | `plot_forest()` | Render forest plots with CI labels, p-value formatting, and table styling |
+
+Most of the user-facing plotting API lives in `R/plot.R`. Forest-plot assembly
+has enough internal moving parts that its helpers live in `R/utils_plot.R`.
+Those helpers handle data preparation, row/column sizing, p-value formatting,
+background styling, borders, and save outputs.
+
+## Design Contract
+
+### Plot Inputs Should Fail Early
+
+The plotting functions should reject structurally invalid inputs before handing
+them to downstream plotting packages. This keeps errors close to the user's
+call and avoids returning a plot object with misleading semantics.
+
+Examples:
+
+- `plot_bar()` requires `y_col` to be numeric because `geom_col()` bar heights
+  are quantitative.
+- `plot_density()` requires `x_col` to be numeric because kernel density
+  estimates are numeric distributions.
+- `plot_forest()` requires `est`, `lower`, and `upper` to match `nrow(data)`.
+- `plot_forest()` requires `p_cols` to refer to numeric p-value columns.
+
+### Pre-Computed Counts Should Be Unambiguous
+
+`plot_pie()` supports three input shapes:
+
+| Input shape | Meaning |
+|---|---|
+| Character/factor vector | Raw labels; counts are computed automatically |
+| Named numeric vector | Pre-computed counts; names are slice labels |
+| Data frame with `group_col` and `count_col` | Pre-computed counts in tabular form |
+
+For the data-frame path, group labels must be unique. Repeated labels would
+draw repeated slices and make the legend ambiguous, so they are rejected instead
+of silently aggregated.
+
+### Zero Counts Are Dropped, But Empty Plots Are Not Allowed
+
+`plot_pie()` drops zero-count slices. After that drop, at least two non-zero
+groups are required. This permits harmless zero rows in pre-computed summary
+tables while avoiding a one-slice or empty pie chart that usually indicates a
+bad upstream summary.
+
+### Optional Backends Should Stay Optional
+
+`plot_venn()` depends on packages from `Suggests`.
+
+| Method | Backend |
+|---|---|
+| `"classic"` | `ggvenn` |
+| `"gradient"` | `ggVennDiagram` |
+
+The function should error clearly when the selected backend is unavailable,
+rather than making the whole package require both Venn plotting packages at
+install time.
+
+### Forest Plot Tables Are Data Plus Derived Columns
+
+`plot_forest()` treats the first `data` column as the row label and preserves
+the remaining display columns. It then inserts two derived columns:
+
+- a gap column where the CI graphic is drawn;
+- an auto-formatted `OR (95% CI)` text column.
+
+The `ci_column` argument controls where this insertion happens. Because this
+changes final table positions, helper code must keep original data-column
+indices and rendered table-column indices separate, especially for `p_cols`
+formatting and bolding.
+
+### Save Formats Are Fixed
+
+When `plot_forest(save = TRUE)`, the file extension in `dest` is ignored and
+four formats are written: PNG, PDF, JPG, and TIFF. Documentation and examples
+should name those formats explicitly.
+
+## Review Notes
+
+The latest review focused on six issues:
+
+1. `plot_pie()` documentation described named count vectors, but the
+   implementation did not support them.
+2. `plot_pie()` allowed repeated groups in pre-computed data-frame counts.
+3. `plot_bar()` did not validate that `y_col` was numeric.
+4. `plot_forest()` documented numeric `p_cols` but coerced non-numeric columns
+   with `as.numeric()`.
+5. The plot vignette had stale defaults for `plot_bar(sort_by)` and
+   `plot_density(alpha)`, and listed an unsupported SVG forest save output.
+6. Forest save-format documentation said "all four formats" without naming the
+   actual PNG, PDF, JPG, and TIFF outputs.
+
+The fixes aligned implementation, tests, and user-facing documentation around
+the stricter input contract.
+
+## Tests
+
+The focused plot test suite lives in `tests/testthat/test-plot.R`.
+
+Latest focused run:
+
+```text
+devtools::test(filter = "plot")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 80 ]
+```
+
+The important tests are contract tests:
+
+- `plot_bar()` errors when `y_col` is non-numeric;
+- `plot_density()` errors when `x_col` is non-numeric or `alpha` is outside
+  `[0, 1]`;
+- `plot_pie()` accepts character vectors, factor vectors, named numeric count
+  vectors, and data frames;
+- `plot_pie()` rejects duplicated data-frame groups and fewer than two
+  non-zero slices;
+- `plot_venn()` rejects empty sets, invalid set labels, and invalid gradient
+  palettes;
+- `plot_forest()` rejects non-numeric `p_cols`, invalid vector lengths, invalid
+  `ci_column`, and `save = TRUE` without `dest`;
+- `plot_forest()` returns a `gtable` invisibly for valid forest-plot inputs.
+
+## Open Questions
+
+- Whether `plot_pie()` should ever aggregate repeated data-frame groups instead
+  of requiring users to pass pre-computed unique counts.
+- Whether `plot_bar()` should support raw-count mode for a single categorical
+  column, parallel to `plot_pie()` character/factor input.
+- Whether forest-plot save support should remain fixed to four formats or move
+  to extension-based single-format output.
+- Whether the Venn helpers should expose the computed intersection table in a
+  more analysis-friendly data-frame form, in addition to `return_sets = TRUE`.

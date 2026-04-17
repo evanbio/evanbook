@@ -1,0 +1,216 @@
+---
+title: "Download"
+---
+
+## Overview
+
+The download module covers four related tasks:
+
+| Task | Function |
+|---|---|
+| Download one file safely | `download_url()` |
+| Download multiple files | `download_batch()` |
+| Download gene annotation | `download_gene_ref()` |
+| Download GEO series data | `download_geo()` |
+
+```{r}
+library(evanverse)
+```
+
+The module is intentionally small. It does not try to replace a full data
+management workflow; it gives evanverse users predictable helpers for common
+download jobs that appear repeatedly in analysis projects.
+
+## Single-File Downloads
+
+`download_url()` downloads one URL to one destination path.
+
+```{r}
+dest <- file.path(tempdir(), "README.md")
+
+download_url(
+  url  = "https://raw.githubusercontent.com/tidyverse/ggplot2/main/README.md",
+  dest = dest
+)
+```
+
+By default, an existing destination file is treated as complete and the
+download is skipped.
+
+```{r}
+download_url(
+  url       = "https://raw.githubusercontent.com/tidyverse/ggplot2/main/README.md",
+  dest      = dest,
+  overwrite = FALSE
+)
+```
+
+Set `overwrite = TRUE` to download again. With the default `resume = TRUE`,
+an existing non-empty destination is used as a resume target.
+
+```{r}
+download_url(
+  url       = "https://raw.githubusercontent.com/tidyverse/ggplot2/main/README.md",
+  dest      = dest,
+  overwrite = TRUE,
+  resume    = TRUE
+)
+```
+
+When `resume = FALSE`, the function downloads to a temporary file first and
+moves it into place only after success. This avoids leaving a new partial file
+at `dest` after a failed download.
+
+```{r}
+download_url(
+  url       = "https://raw.githubusercontent.com/tidyverse/ggplot2/main/README.md",
+  dest      = dest,
+  overwrite = TRUE,
+  resume    = FALSE
+)
+```
+
+Use shorter timeouts and fewer retries for interactive work; use longer values
+for unattended scripts.
+
+```{r}
+download_url(
+  url     = "https://example.com/data.csv",
+  dest    = file.path(tempdir(), "data.csv"),
+  timeout = 60,
+  retries = 1
+)
+```
+
+## Batch Downloads
+
+`download_batch()` downloads multiple URLs into one directory. File names are
+derived from the URL path.
+
+```{r}
+urls <- c(
+  "https://httpbin.org/robots.txt",
+  "https://httpbin.org/encoding/utf8"
+)
+
+paths <- download_batch(
+  urls     = urls,
+  dest_dir = file.path(tempdir(), "downloads")
+)
+```
+
+Existing files are skipped when `overwrite = FALSE`.
+
+```{r}
+download_batch(
+  urls      = urls,
+  dest_dir  = file.path(tempdir(), "downloads"),
+  overwrite = FALSE
+)
+```
+
+The function rejects duplicate destination file names. This matters when two
+different URLs end with the same file name.
+
+```{r}
+download_batch(
+  urls = c(
+    "https://host-a.example/data.csv",
+    "https://host-b.example/data.csv"
+  ),
+  dest_dir = tempdir()
+)
+```
+
+Blank URLs are rejected early so errors point to the input rather than to curl
+or file-name derivation.
+
+```{r}
+download_batch(
+  urls     = c("https://example.com/data.csv", ""),
+  dest_dir = tempdir()
+)
+```
+
+## Gene Annotation
+
+`download_gene_ref()` retrieves a standard Ensembl gene annotation table for
+human or mouse using `biomaRt`.
+
+```{r}
+human_ref <- download_gene_ref("human")
+
+head(human_ref)
+```
+
+The result contains stable columns used elsewhere in evanverse workflows:
+
+| Column | Meaning |
+|---|---|
+| `ensembl_id` | Ensembl gene ID |
+| `symbol` | Gene symbol |
+| `entrez_id` | Entrez gene ID |
+| `gene_type` | Ensembl biotype |
+| `chromosome`, `start`, `end`, `strand` | Genomic location |
+| `description` | Ensembl description |
+| `species` | Requested species |
+| `ensembl_version` | Current Ensembl version when available |
+| `download_date` | Local download date |
+
+Use `dest` to save the table as an RDS file. The `.rds` extension is appended
+when it is omitted.
+
+```{r}
+download_gene_ref(
+  species = "mouse",
+  dest    = file.path(tempdir(), "mouse_gene_ref")
+)
+```
+
+`biomaRt` is required for this function. If it is not installed, the function
+fails with an installation hint instead of a namespace error.
+
+## GEO Series
+
+`download_geo()` downloads a GEO series with three pieces:
+
+| Output | Contents |
+|---|---|
+| `gse_object` | GEO expression object from `GEOquery::getGEO()` |
+| `supplemental_files` | Downloaded supplemental files, when available |
+| `platform_info` | Platform ID and downloaded platform annotation files |
+
+```{r}
+geo <- download_geo(
+  gse_id   = "GSE121212",
+  dest_dir = file.path(tempdir(), "GSE121212")
+)
+
+names(geo)
+```
+
+GEO accessions must use the `GSE` prefix followed by digits.
+
+```{r}
+download_geo("GSE12345", dest_dir = tempdir())
+```
+
+`GEOquery` is required for this function. Supplemental and platform downloads
+can fail independently of the main series matrix, so downstream code should
+check the returned file vectors before reading them.
+
+## Design Notes
+
+- `download_url()` uses temporary files for fresh downloads so failed calls do
+  not create a destination file that later calls would treat as complete.
+- Resume mode writes directly to the destination because that is the intended
+  curl resume behavior.
+- `download_batch()` retries only failed files after each attempt.
+- `download_batch()` currently does not remove failed destination files because
+  `curl::multi_download()` may overwrite a user file that existed before the
+  call. Cleanup needs to distinguish files created by the current call from
+  files owned by the user.
+- External data sources are network-dependent. Tests that hit httpbin, Ensembl,
+  or GEO are skipped on CRAN and CI, but should still be run locally when
+  validating this module.
+

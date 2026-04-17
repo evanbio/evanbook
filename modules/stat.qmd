@@ -1,0 +1,259 @@
+---
+title: "Stat"
+---
+
+## Overview
+
+The stat module covers five common statistical workflows:
+
+| Task | Function |
+|---|---|
+| Power and sample-size planning | `stat_power()`, `stat_n()` |
+| Two-group comparison | `quick_ttest()` |
+| Multi-group comparison | `quick_anova()` |
+| Categorical association | `quick_chisq()` |
+| Correlation analysis | `quick_cor()` |
+
+```{r}
+library(evanverse)
+```
+
+The module is designed for quick, explicit statistical checks during analysis.
+It does not replace a full statistical modelling workflow; it gives small,
+repeatable wrappers around common tests with diagnostics, effect-size summaries,
+and plotting methods.
+
+## Power Planning
+
+`stat_power()` computes achieved power from sample size and expected effect
+size.
+
+```{r}
+power_res <- stat_power(
+  n           = 30,
+  effect_size = 0.5,
+  test        = "t_two"
+)
+
+print(power_res)
+summary(power_res)
+plot(power_res)
+```
+
+`stat_n()` computes the required sample size for a target power.
+
+```{r}
+n_res <- stat_n(
+  power       = 0.8,
+  effect_size = 0.5,
+  test        = "t_two"
+)
+
+print(n_res)
+plot(n_res)
+```
+
+Supported test families share the same effect-size conventions:
+
+| `test` | Meaning | Effect size |
+|---|---|---|
+| `"t_two"` | Two-sample t-test | Cohen's d |
+| `"t_one"` | One-sample t-test | Cohen's d |
+| `"t_paired"` | Paired t-test | Cohen's d |
+| `"anova"` | One-way ANOVA | Cohen's f |
+| `"proportion"` | One-sample proportion test | Cohen's h |
+| `"correlation"` | Correlation test | Pearson r |
+| `"chisq"` | Chi-square test | Cohen's w |
+
+ANOVA requires `k`, the number of groups. Chi-square requires `df`, the degrees
+of freedom.
+
+```{r}
+stat_power(n = 25, effect_size = 0.25, test = "anova", k = 3)
+stat_n(power = 0.8, effect_size = 0.3, test = "chisq", df = 2)
+```
+
+## Two-Group Comparison
+
+`quick_ttest()` compares exactly two groups for a numeric outcome. With
+`method = "auto"`, it checks normality and chooses between Welch's t-test and a
+Wilcoxon test.
+
+```{r}
+set.seed(42)
+df <- data.frame(
+  group = rep(c("A", "B"), each = 30),
+  value = c(rnorm(30, 5), rnorm(30, 6))
+)
+
+tt <- quick_ttest(
+  data      = df,
+  group_col = "group",
+  value_col = "value"
+)
+
+print(tt)
+summary(tt)
+plot(tt)
+```
+
+Independent comparisons use Welch's t-test when the parametric path is selected.
+Paired comparisons require an ID column.
+
+```{r}
+set.seed(7)
+paired_df <- data.frame(
+  id    = rep(seq_len(20), 2),
+  group = rep(c("pre", "post"), each = 20),
+  value = c(rnorm(20, 10, 2), rnorm(20, 11, 2))
+)
+
+quick_ttest(
+  paired_df,
+  group_col = "group",
+  value_col = "value",
+  paired    = TRUE,
+  id_col    = "id"
+)
+```
+
+Constant groups are allowed in the normality diagnostic path. Shapiro-Wilk is
+skipped for those groups, and the function continues with a clear message
+instead of failing inside `stats::shapiro.test()`.
+
+## Multi-Group Comparison
+
+`quick_anova()` compares two or more groups for a numeric outcome. With
+`method = "auto"`, it uses group normality diagnostics and variance checks to
+choose among classical ANOVA, Welch ANOVA, and Kruskal-Wallis.
+
+```{r}
+set.seed(123)
+anova_df <- data.frame(
+  group = rep(LETTERS[1:3], each = 40),
+  value = rnorm(120, mean = rep(c(0, 0.5, 1.2), each = 40), sd = 1)
+)
+
+av <- quick_anova(
+  anova_df,
+  group_col = "group",
+  value_col = "value"
+)
+
+print(av)
+summary(av)
+plot(av)
+```
+
+Post-hoc tests can be selected explicitly, or left on `auto`:
+
+| Omnibus method | Default post-hoc |
+|---|---|
+| `anova` | Tukey HSD |
+| `welch` | Pairwise Welch t-tests, BH-adjusted |
+| `kruskal` | Pairwise Wilcoxon tests, BH-adjusted |
+
+```{r}
+quick_anova(
+  anova_df,
+  group_col = "group",
+  value_col = "value",
+  method    = "anova",
+  post_hoc  = "tukey"
+)
+```
+
+Kruskal-Wallis results include epsilon-squared as an effect-size summary.
+
+## Categorical Association
+
+`quick_chisq()` tests association between two categorical variables. The
+automatic method uses expected frequencies and table shape.
+
+```{r}
+set.seed(123)
+chisq_df <- data.frame(
+  treatment = sample(c("A", "B", "C"), 100, replace = TRUE),
+  response  = sample(c("Success", "Failure"), 100, replace = TRUE)
+)
+
+cs <- quick_chisq(
+  chisq_df,
+  x_col = "treatment",
+  y_col = "response"
+)
+
+print(cs)
+summary(cs)
+plot(cs)
+```
+
+Method selection:
+
+| Case | Method |
+|---|---|
+| 2x2 with expected frequency below 5 | Fisher's exact test |
+| 2x2 with moderate expected frequencies | Chi-square with Yates correction |
+| Larger sparse tables | Chi-square with warning |
+| Matched square table, explicit request | McNemar's test |
+
+`method = "mcnemar"` is only for paired or matched categorical outcomes.
+
+## Correlation Analysis
+
+`quick_cor()` computes a correlation matrix, p-values, optional p-value
+adjustment, and significant-pair summaries.
+
+```{r}
+cor_res <- quick_cor(
+  mtcars,
+  vars = c("mpg", "hp", "wt", "qsec")
+)
+
+print(cor_res)
+summary(cor_res)
+plot(cor_res, type = "upper", show_sig = TRUE)
+```
+
+Use `p_adjust_method` when many pairs are tested.
+
+```{r}
+quick_cor(
+  mtcars,
+  vars            = c("mpg", "hp", "wt", "qsec"),
+  method          = "spearman",
+  p_adjust_method = "BH"
+)
+```
+
+The `use` argument follows `stats::cor()` missing-value handling and is
+validated before the correlation is computed:
+
+```{r}
+quick_cor(
+  mtcars,
+  use = "pairwise.complete.obs"
+)
+```
+
+Valid choices are `everything`, `all.obs`, `complete.obs`, `na.or.complete`,
+and `pairwise.complete.obs`.
+
+## Design Notes
+
+- `stat_power()` and `stat_n()` return the same S3 class, `power_result`, so
+  `print()`, `summary()`, and `plot()` work consistently.
+- `quick_ttest()` uses Welch's t-test for independent parametric comparisons.
+- Wilcoxon tests use `exact = FALSE` so common tied data do not create noisy
+  exact-p-value warnings.
+- Normality diagnostics skip constant groups instead of failing inside
+  Shapiro-Wilk.
+- `quick_anova()` still runs diagnostics when a method is forced, but the
+  forced method is respected.
+- `quick_chisq()` reports observed counts, expected frequencies, residuals when
+  available, and Cramer's V when a chi-square statistic exists.
+- `quick_cor()` reports significant pairs based on adjusted p-values when
+  `p_adjust_method` is not `"none"`.
+- Plot methods return the original result invisibly after printing the ggplot,
+  matching the package's reporting style.
+

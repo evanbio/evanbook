@@ -1,0 +1,110 @@
+---
+title: "Base Module"
+---
+
+The `base` module is the small-utility layer of `evanverse`. It collects
+helpers that are useful across ordinary analysis work but do not belong to a
+heavier plotting, statistical, download, or package-management module.
+
+This module should stay practical and predictable. The functions are small, but
+their behavior still matters because they are often used as glue in larger
+workflows.
+
+## Scope
+
+`R/base.R` currently exports thirteen functions:
+
+| Group | Functions | Role |
+|---|---|---|
+| Data frame utilities | `df2list()`, `df2vect()`, `recode_column()`, `view()` | Convert, recode, and inspect tabular data |
+| File system utilities | `file_ls()`, `file_info()`, `file_tree()` | Inspect files and directory structure |
+| Gene ID conversion | `gene2entrez()`, `gene2ensembl()` | Convert gene symbols with an explicit or downloaded reference |
+| GMT parsing | `gmt2df()`, `gmt2list()` | Read GMT gene-set files into data frames or lists |
+| Math utilities | `perm()`, `comb()` | Small combinatorics helpers |
+
+The module stays in one source file. Instead of splitting it back into many
+small files, `R/base.R` is organized with internal section dividers. This keeps
+the package structure compact while still making the module reviewable.
+
+## Design Contract
+
+### Return Types Should Be Stable
+
+Functions should return the documented type when they succeed. Invalid input
+should usually raise a clear error rather than returning an ambiguous sentinel
+value.
+
+This matters most for GMT parsing. `gmt2df()` documents a data frame return,
+and `gmt2list()` documents a named list return. A malformed GMT file with no
+valid gene sets should therefore error instead of returning `NULL`.
+
+### Missing And Explicit `NA` Are Different
+
+`recode_column()` uses a named vector as a dictionary. A key that is absent from
+the dictionary is unmatched and receives `default`. A key that is present but
+maps to `NA` is a real match and should stay `NA`.
+
+That distinction lets users intentionally erase or mask values without losing
+control of the fallback behavior.
+
+### Reference Duplicates Should Be Visible
+
+`gene2entrez()` and `gene2ensembl()` normalize symbols before matching:
+
+| Species | Normalization |
+|---|---|
+| `human` | `toupper()` |
+| `mouse` | `tolower()` |
+
+If the reference table contains duplicated symbols after normalization, the
+functions warn and use the first match. This keeps the simple one-row-per-input
+return shape while making the ambiguity visible.
+
+### Warnings Should Be Catchable
+
+`perm()` and `comb()` can exceed double range for large inputs. Overflow-risk
+messages are part of the behavior, so they should be emitted with
+`cli::cli_warn()` rather than display-only alerts. That makes them testable and
+catchable by calling code.
+
+## Review Notes
+
+The latest review focused on five issues:
+
+1. GMT parsing had an unstable all-malformed-file path.
+2. `recode_column()` treated explicit `NA` mappings as unmatched values.
+3. Gene ID conversion silently ignored duplicated reference symbols.
+4. `perm()` and `comb()` used non-catchable warning alerts.
+5. The base vignette described eleven functions while the module exported
+   thirteen.
+
+The fixes aligned implementation, tests, and user-facing documentation around a
+clearer module contract.
+
+## Tests
+
+The focused base test suite lives in `tests/testthat/test-base.R`.
+
+Latest focused run:
+
+```text
+devtools::test(filter = "base")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 125 ]
+```
+
+The important tests are contract tests:
+
+- malformed GMT files with no valid gene sets error;
+- `recode_column()` preserves explicit `NA` mappings;
+- non-scalar `default` values in `recode_column()` error;
+- duplicated normalized gene symbols warn and use the first match;
+- `perm()` and `comb()` overflow notices are real warnings.
+
+## Open Questions
+
+- Whether gene ID duplicates should continue to warn or eventually become an
+  error.
+- Whether `view()` belongs in `base` long term, since it is interactive and
+  depends on `reactable`.
+- Whether the math helpers should stay here or move if a larger math/stat helper
+  family develops.

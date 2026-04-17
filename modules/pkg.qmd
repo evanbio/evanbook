@@ -1,0 +1,113 @@
+---
+title: "Package Module"
+---
+
+The `pkg` module is the package-management edge of `evanverse`. It no longer
+tries to be a full installer or updater. Its current role is deliberately small:
+configure mirrors and inspect installed package exports.
+
+Installation, updates, dependency resolution, and status checks are delegated to
+`pak`.
+
+## Scope
+
+`R/pkg.R` currently exports two functions:
+
+| Function | Role |
+|---|---|
+| `set_mirror()` | Configure CRAN and/or Bioconductor mirrors |
+| `pkg_functions()` | List exported names from an installed package |
+
+## Design Contract
+
+### `set_mirror()` Is A Side-Effect Function
+
+`set_mirror()` changes global R options:
+
+- `options("repos")` for CRAN;
+- `options("BioC_mirror")` for Bioconductor.
+
+Because it changes session state, the side effect must stay obvious in the
+function name, documentation, messages, and tests.
+
+The function returns the previous settings invisibly so callers can restore
+them:
+
+```r
+old <- set_mirror("all", "tuna")
+options(old)
+```
+
+### Preserve Existing Repository Entries
+
+When setting only the CRAN mirror, `set_mirror()` should update the `CRAN` entry
+without wiping other repositories such as RSPM or custom repos.
+
+If `getOption("repos")` is `NULL`, the function should still create a valid
+named `CRAN` entry.
+
+### Mirror Names Should Be Explicit
+
+Mirror names are curated rather than arbitrary URLs. This keeps the user-facing
+API compact and allows clearer error messages:
+
+- `repo = "cran"` accepts CRAN mirrors;
+- `repo = "bioc"` accepts Bioconductor mirrors;
+- `repo = "all"` only accepts mirrors shared by both.
+
+CRAN-only mirrors such as `aliyun` or `rstudio` should error for `repo = "all"`
+and tell the user to call `set_mirror("cran", mirror)` instead.
+
+### `pkg_functions()` Is Pure Inspection
+
+`pkg_functions()` should not change package state. It checks that a package is
+installed, reads its namespace exports, optionally filters by a keyword, and
+returns a sorted character vector.
+
+An unmatched keyword returns `character(0)`, not an error.
+
+## Review Notes
+
+The latest review focused on documentation drift and one edge case:
+
+1. `set_mirror()` documentation still referred to removed functions such as
+   `inst_pkg()` and `update_pkg()`.
+2. The English README mentioned `pkg::pkg_install()` instead of
+   `pak::pkg_install()`.
+3. The package vignette still showed old palette-management exports in
+   `pkg_functions("evanverse")` examples.
+4. `set_mirror("cran", ...)` did not have a test for `getOption("repos")` being
+   `NULL`.
+
+The fixes aligned the module with its current scope: mirror configuration,
+export inspection, and `pak` as the recommended installer.
+
+## Tests
+
+The focused pkg test suite lives in `tests/testthat/test-pkg.R`.
+
+Latest focused run:
+
+```text
+devtools::test(filter = "pkg")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 45 ]
+```
+
+The important tests are contract tests:
+
+- CRAN and Bioconductor mirrors are set to expected URLs;
+- `repo = "all"` only accepts shared mirrors;
+- invalid mirror names fail with informative errors;
+- non-CRAN repo entries are preserved when setting CRAN;
+- a missing `repos` option is converted into a named `CRAN` entry;
+- `pkg_functions()` returns sorted exports, filters case-insensitively, and
+  returns `character(0)` for unmatched keywords.
+
+All tests that modify mirror-related options use `skip_on_cran()`.
+
+## Open Questions
+
+- Whether `set_mirror()` should support custom URLs or remain curated-only.
+- Whether messages should remain unconditional or gain a quiet mode for scripts.
+- Whether `pkg_functions()` should support regex mode explicitly, since `key`
+  currently passes through `grepl()`.

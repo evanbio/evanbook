@@ -1,0 +1,156 @@
+---
+title: "Toy Module"
+---
+
+The `toy` module provides small deterministic fixtures for examples, demos,
+offline workflows, and tests. It should make package examples runnable without
+network access while still exercising realistic package contracts such as gene
+ID conversion and GMT parsing.
+
+This module is intentionally narrow. It is not a source of real biological
+reference data, and it should not drift into a general simulation framework.
+Its value is that the outputs are small, stable, and composable with the rest
+of `evanverse`.
+
+## Scope
+
+`R/toy.R` currently exports two functions:
+
+| Group | Functions | Role |
+|---|---|---|
+| Gene reference fixtures | `toy_gene_ref()` | Return a compact human or mouse reference table for offline gene ID conversion |
+| GMT fixtures | `toy_gmt()` | Write a temporary GMT file with built-in gene sets for parser and workflow examples |
+
+The public wrappers live in `R/toy.R`. Internal data construction and temporary
+GMT writing live in `R/utils_toy.R`.
+
+## Design Contract
+
+### Fixtures Should Be Deterministic
+
+`toy_gene_ref()` and `toy_gmt()` should return stable content across calls.
+Temporary file paths from `toy_gmt()` may differ, but the written GMT content
+should be predictable.
+
+This matters because these helpers are used in examples and tests. They should
+not depend on network access, package caches, remote annotation services, or
+random seeds.
+
+### Toy Gene References Should Be Clean
+
+`toy_gene_ref()` returns a data frame with this column contract:
+
+| Column | Meaning |
+|---|---|
+| `symbol` | Gene symbol |
+| `ensembl_id` | Ensembl gene ID |
+| `entrez_id` | Entrez gene ID |
+| `gene_type` | Simple gene type label |
+| `species` | `"human"` or `"mouse"` |
+| `ensembl_version` | Reference version label |
+| `download_date` | Stable fixture date |
+
+Within each species, non-missing symbols and Ensembl IDs should be unique. The
+default toy reference should not trigger duplicate-symbol warnings in
+`gene2entrez()` or `gene2ensembl()`.
+
+### GMT Genes Should Map Through The Human Reference
+
+The human `toy_gene_ref()` includes the symbols used by `toy_gmt()`:
+
+`TP53`, `BRCA1`, `MYC`, `EGFR`, `PTEN`, `CDK2`, `MDM2`, `RB1`, `CDKN2A`,
+`AKT1`, `MTOR`, `PIK3CA`, `KRAS`, `BRAF`, `NRAS`, `VEGFA`, `HIF1A`, `STAT3`,
+`JAK2`, and `BCL2`.
+
+That makes this offline workflow valid:
+
+1. Write a GMT file with `toy_gmt()`.
+2. Parse it with `gmt2df()`.
+3. Convert `gene` values with `gene2entrez(..., ref = toy_gene_ref("human"))`.
+4. Rebuild grouped Entrez-ID sets with `df2list()`.
+
+The combined workflow should not produce all-`NA` IDs.
+
+### Input Counts Are Positive And Capped
+
+Both exported functions validate `n` with `.assert_count()`, so `n` must be a
+single positive integer.
+
+The available built-in fixture sizes are finite:
+
+| Function | Default | Maximum returned |
+|---|---:|---:|
+| `toy_gene_ref()` | 20 rows | 100 rows |
+| `toy_gmt()` | 5 gene sets | 5 gene sets |
+
+Values above the available maximum are silently capped. This is currently part
+of the tested behavior.
+
+### Temporary GMT Output Should Be Parser-Compatible
+
+Each `toy_gmt()` line is GMT formatted:
+
+`term`, `description`, then one or more tab-separated genes.
+
+The output should be directly compatible with both `gmt2df()` and `gmt2list()`.
+Term names should be non-empty and distinct.
+
+## Review Notes
+
+The latest review focused on a real mismatch between implementation, docs, and
+tests:
+
+1. `toy_gmt()` used common cancer/pathway symbols such as `TP53` and `BRCA1`.
+2. The old human `toy_gene_ref()` did not contain those symbols, so documented
+   gene ID conversion examples returned `NA`.
+3. The old human reference contained duplicated symbols and duplicated Ensembl
+   IDs, causing duplicate-reference warnings in ordinary examples.
+4. The toy vignette hand-written output was stale.
+5. Tests checked that `toy_gmt()` parsed, but did not check semantic
+   compatibility between `toy_gmt()` and `toy_gene_ref()`.
+
+The fixes changed `toy_gene_ref()` to a clean deterministic reference whose
+human symbols align with `toy_gmt()`, removed the stale internal reference
+blocks, updated docs, and added contract tests for cross-function compatibility.
+
+## Tests
+
+The focused toy test suite lives in `tests/testthat/test-toy.R`.
+
+Latest focused run:
+
+```text
+devtools::test(filter = "toy")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 62 ]
+```
+
+Base-module tests were also rerun because toy fixtures are used by base gene ID
+conversion and GMT parser examples:
+
+```text
+devtools::test(filter = "base")
+[ FAIL 0 | WARN 0 | SKIP 0 | PASS 125 ]
+```
+
+The important tests are contract tests:
+
+- `toy_gmt()` returns an existing `.gmt` path and writes the expected number of
+  lines;
+- GMT lines have non-empty distinct terms and parser-compatible fields;
+- `toy_gmt()` output is compatible with `gmt2df()` and `gmt2list()`;
+- `toy_gmt()` genes are mappable with human `toy_gene_ref()`;
+- `toy_gene_ref()` returns the documented columns in order;
+- human and mouse references include key example genes and expected IDs;
+- symbols and Ensembl IDs are unique within each species;
+- invalid `n` values error for both exported functions.
+
+## Open Questions
+
+- Whether silent capping should remain the long-term behavior or become a
+  warning when `n` exceeds available fixture rows/sets.
+- Whether fixture data should include a small controlled duplicate-reference
+  variant for testing warning paths, instead of relying on ad hoc test data.
+- Whether `toy_gmt()` should expose the built-in gene-set data as a data frame
+  in addition to writing a temporary file.
+- Whether the synthetic filler IDs should remain simple stable placeholders or
+  be replaced with a larger curated set of real IDs.
