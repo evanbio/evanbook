@@ -74,6 +74,7 @@ Use shorter timeouts and fewer retries for interactive work; use longer values
 for unattended scripts.
 
 ```{r}
+#| error: true
 download_url(
   url     = "https://example.com/data.csv",
   dest    = file.path(tempdir(), "data.csv"),
@@ -88,6 +89,7 @@ download_url(
 derived from the URL path.
 
 ```{r}
+#| eval: false
 urls <- c(
   "https://httpbin.org/robots.txt",
   "https://httpbin.org/encoding/utf8"
@@ -102,6 +104,7 @@ paths <- download_batch(
 Existing files are skipped when `overwrite = FALSE`.
 
 ```{r}
+#| eval: false
 download_batch(
   urls      = urls,
   dest_dir  = file.path(tempdir(), "downloads"),
@@ -113,6 +116,7 @@ The function rejects duplicate destination file names. This matters when two
 different URLs end with the same file name.
 
 ```{r}
+#| error: true
 download_batch(
   urls = c(
     "https://host-a.example/data.csv",
@@ -126,6 +130,7 @@ Blank URLs are rejected early so errors point to the input rather than to curl
 or file-name derivation.
 
 ```{r}
+#| error: true
 download_batch(
   urls     = c("https://example.com/data.csv", ""),
   dest_dir = tempdir()
@@ -138,6 +143,7 @@ download_batch(
 human or mouse using `biomaRt`.
 
 ```{r}
+#| eval: false
 human_ref <- download_gene_ref("human")
 
 head(human_ref)
@@ -161,6 +167,7 @@ Use `dest` to save the table as an RDS file. The `.rds` extension is appended
 when it is omitted.
 
 ```{r}
+#| eval: false
 download_gene_ref(
   species = "mouse",
   dest    = file.path(tempdir(), "mouse_gene_ref")
@@ -181,6 +188,7 @@ fails with an installation hint instead of a namespace error.
 | `platform_info` | Platform ID and downloaded platform annotation files |
 
 ```{r}
+#| eval: false
 geo <- download_geo(
   gse_id   = "GSE121212",
   dest_dir = file.path(tempdir(), "GSE121212")
@@ -192,6 +200,7 @@ names(geo)
 GEO accessions must use the `GSE` prefix followed by digits.
 
 ```{r}
+#| eval: false
 download_geo("GSE12345", dest_dir = tempdir())
 ```
 
